@@ -16,6 +16,14 @@ class Endereco {
   }
 }
 
+class Empresa {
+  constructor(nome, cnpj, end) {
+    this.nome = nome;
+    this.cnpj = cnpj;
+    this.endereco = end;
+  }
+}
+
 // Uso das Classes
 const endIFCE = new Endereco(
   "Rodovia CE-040",
@@ -38,3 +46,14 @@ const endIFCEComp = endIFCE.obterEnderecoCompleto();
 const endCoelceComp = endCoelce.obterEnderecoCompleto();
 console.log("End Compl:" + endIFCEComp);
 console.log("End Compl:" + endCoelceComp);
+
+const ifce1 = new Empresa("IFCE", 123456, endIFCE);
+const cantina = new Empresa("Cantina", 12343223, endIFCE);
+const ifce2 = new Empresa(
+  "IFCE",
+  123456,
+  new Endereco("Rod CE-040", "S/N", "Aracati", "CE", "62900-000"),
+);
+console.log("---");
+console.log(ifce1.endereco.obterEnderecoCompleto());
+console.log(cantina.endereco.obterEnderecoCompleto());
