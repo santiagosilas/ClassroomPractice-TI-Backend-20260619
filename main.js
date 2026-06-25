@@ -16,6 +16,26 @@ class Endereco {
   }
 }
 
+class Pessoa {
+  constructor(nome, cpf, email) {
+    this.nome = nome;
+    this.cpf = cpf;
+    this.email = email;
+  }
+  validarCpf() {
+    if (this.cpf.length == 11) return true;
+    else return false;
+  }
+}
+
+class Cavaleiro extends Pessoa {
+  constructor(nome, cpf, email, armadura, tipo) {
+    super(nome, cpf, email);
+    this.armadura = armadura;
+    this.tipo = tipo;
+  }
+}
+
 class Empresa {
   constructor(nome, cnpj, end) {
     this.nome = nome;
@@ -57,3 +77,13 @@ const ifce2 = new Empresa(
 console.log("---");
 console.log(ifce1.endereco.obterEnderecoCompleto());
 console.log(cantina.endereco.obterEnderecoCompleto());
+
+const p1 = new Pessoa("Seya", "12345678901", "seya@gmail.com");
+const p2 = new Pessoa("Shiryu", "223456", "shiryu@gmail.com");
+const p3 = new Pessoa("Ikki", "32345678901", "ikki@gmail.com");
+const pessoas = [p1, p2, p3];
+pessoas.forEach((pessoa) => {
+  console.log(`
+    ${pessoa.nome} 
+    ${pessoa.validarCpf() ? "Válido!" : "Inválido"}`);
+});
