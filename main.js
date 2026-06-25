@@ -17,10 +17,11 @@ class Endereco {
 }
 
 class Pessoa {
-  constructor(nome, cpf, email) {
+  constructor(nome, cpf, email, endereco) {
     this.nome = nome;
     this.cpf = cpf;
     this.email = email;
+    this.endereco = endereco;
   }
   validarCpf() {
     if (this.cpf.length == 11) return true;
@@ -29,8 +30,8 @@ class Pessoa {
 }
 
 class Cavaleiro extends Pessoa {
-  constructor(nome, cpf, email, armadura, tipo) {
-    super(nome, cpf, email);
+  constructor(nome, cpf, email, armadura, tipo, endereco) {
+    super(nome, cpf, email, endereco); // super: chama o ctor da suplerclasse
     this.armadura = armadura;
     this.tipo = tipo;
   }
@@ -78,12 +79,55 @@ console.log("---");
 console.log(ifce1.endereco.obterEnderecoCompleto());
 console.log(cantina.endereco.obterEnderecoCompleto());
 
-const p1 = new Pessoa("Seya", "12345678901", "seya@gmail.com");
-const p2 = new Pessoa("Shiryu", "223456", "shiryu@gmail.com");
-const p3 = new Pessoa("Ikki", "32345678901", "ikki@gmail.com");
+const endSeya = new Endereco(
+  "Rodovia CE-040",
+  "S/N",
+  "Aracati",
+  "CE",
+  "62900-000",
+);
+const endShiryu = new Endereco(
+  "Rodovia CE-040",
+  "S/N",
+  "Aracati",
+  "CE",
+  "62900-000",
+);
+const endIkki = new Endereco(
+  "Rodovia CE-040",
+  "S/N",
+  "Aracati",
+  "CE",
+  "62900-000",
+);
+
+const p1 = new Pessoa("Seya", "12345678901", "seya@gmail.com", endSeya);
+const p2 = new Pessoa("Shiryu", "223456", "shiryu@gmail.com", endShiryu);
+const p3 = new Pessoa("Ikki", "32345678901", "ikki@gmail.com", endIkki);
 const pessoas = [p1, p2, p3];
+
 pessoas.forEach((pessoa) => {
   console.log(`
     ${pessoa.nome} 
     ${pessoa.validarCpf() ? "Válido!" : "Inválido"}`);
 });
+
+const cavaleiros = [];
+const clothes = [
+  { arm: "Pégaso", tipo: "Bronze" },
+  { arm: "Dragão", tipo: "Bronze" },
+  { arm: "Fenix", tipo: "Bronze" },
+];
+let count = 0;
+pessoas.forEach((p) => {
+  const { arm, tipo } = clothes[count];
+  const c = new Cavaleiro(p.nome, p.cpf, p.email, arm, tipo, p.endereco);
+  cavaleiros.push(c);
+  count++;
+});
+cavaleiros.forEach((c) => {
+  console.log(`
+    ${c.nome} ${c.armadura} ${c.endereco.logradouro} 
+    ${c.validarCpf() ? "Válido!" : "Inválido"}`);
+});
+// PESSOA TEM ENDEREÇO. REFATORAR CÓDIGO.
